@@ -1,4 +1,6 @@
-
+let firstNumber;
+let operator;
+let secondNumber;
 
 const buttons = [
     '1', '2', '3',
@@ -11,15 +13,27 @@ const buttons = [
 ]
 
 const calcContainer = document.querySelector('.calculator-container');
+const display = document.querySelector('.display');
+
+const updateDisplay = [''];
+
+const undo = [''];
+
+
 
 buttons.forEach((button) => {
     const newButton = document.createElement('button');
     newButton.textContent = button;
     newButton.className = 'calc-buttons';
+    newButton.addEventListener('click', () => {
+        updateDisplay.push(button);
+        undo.push(button);
+        display.textContent = updateDisplay.join('');
+    });
     calcContainer.appendChild(newButton);
 })
 
-
+console.log(firstNumber);
 
 
 
@@ -39,9 +53,7 @@ function divide(a, b) {
     return a / b;
 };
 
-let firstNumber;
-let operator;
-let secondNumber;
+
 
 function operate(firstNumber, operator, secondNumber) {
 
@@ -67,19 +79,6 @@ return result;
 //creating this note to make sure I check, just in case
 
 //also, what should I return if the operate function somehow fails
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
