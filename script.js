@@ -2,38 +2,107 @@ let firstNumber;
 let operator;
 let secondNumber;
 
-const buttons = [
+const numButtons = [
     '1', '2', '3',
     '4', '5', '6',
     '7', '8', '9',
     '0',
-    '.', '+', '-',
-    '*', '/', 'Clr',
-    '=', 'Undo',
 ]
 
+const operatorButtons = [
+    '+', '-', '*', '/',
+    '=',
+]
+
+// const otherButtons [   ----future features
+//     'Clr', 'Undo',
+//        '.',
+// ]
+
 const calcContainer = document.querySelector('.calculator-container');
-const display = document.querySelector('.display');
+const operatorContainer = document.querySelector('.operator-buttons');
+const displayDiv = document.querySelector('.display');
 
-const updateDisplay = [''];
+let display = [];
 
-const undo = [''];
+//const undo = []; removing until i add undo feature
 
 
 
-buttons.forEach((button) => {
+// numButtons.forEach((button) => {
+//     const newButton = document.createElement('button');
+//     newButton.textContent = button;
+//     newButton.className = 'calc-button';
+//     newButton.addEventListener('click', () => {
+//         display.push(button);
+//         //undo.push(updateDisplay); //almost there, i need to relocate it i think, removing until later
+//         displayDiv.textContent = display.join('');
+//     });
+//     calcContainer.appendChild(newButton);
+// });
+
+// operatorButtons.forEach((button) => {
+//     const newButton = document.createElement('button');
+//     newButton.textContent = button;
+//     newButton.className = 'operator-button';
+//     newButton.addEventListener('click', () => {
+//         if (!firstNumber) {
+//             firstNumber = display.join('');
+//             console.log(firstNumber);
+//         }
+//         else if (firstNumber) {
+//             secondNumber = 
+//             console.log(secondNumber);
+//         }
+//     });
+//     operatorContainer.appendChild(newButton);
+// });
+
+let displayCheck = true;
+
+numButtons.forEach((button) => {
     const newButton = document.createElement('button');
     newButton.textContent = button;
-    newButton.className = 'calc-buttons';
+    newButton.className = 'calc-button';
     newButton.addEventListener('click', () => {
-        updateDisplay.push(button);
-        undo.push(button);
-        display.textContent = updateDisplay.join('');
+        
+        //undo.push(display); //almost there, i need to relocate it i think, removing until later
+        
+        if (displayCheck === true) {
+            displayCheck = false;
+            display = [];
+            display.push(button);
+            displayDiv.textContent = display.join('');
+            
+        }
+        else {
+            display.push(button);
+            displayDiv.textContent = display.join('');
+        }
     });
     calcContainer.appendChild(newButton);
-})
+});
 
-console.log(firstNumber);
+operatorButtons.forEach((button) => {
+    const newButton = document.createElement('button');
+    newButton.textContent = button;
+    newButton.className = 'operator-button';
+    newButton.addEventListener('click', () => {
+        if (!firstNumber) {
+            firstNumber = display.join('');
+            displayCheck = true;
+            console.log(firstNumber);
+        }
+        else if (firstNumber) {
+            secondNumber = display.join('');
+            displayCheck = true;
+            console.log(secondNumber);
+        }
+    });
+    operatorContainer.appendChild(newButton);
+});
+
+
 
 
 
