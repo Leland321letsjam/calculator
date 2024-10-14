@@ -6,7 +6,7 @@ let firstNumber;
 let operator;
 let secondNumber;
 let clearDisplayCheck = true;
-let display = [];
+//let display = []; //global isn't needed, display is handled inside each function
 
 const numButtons = [
     '1', '2', '3',
@@ -16,20 +16,45 @@ const numButtons = [
 ]
 
 const operatorButtons = [
-    '+', '-', '*', '/',
-    '=',
+    '+', '-', 'x', '÷',
 ]
 
 // const otherButtons [   ----future features
-//     'Clr', 'Undo',
-//        '.',
+//    'Undo', '.',
 // ]
 
 
-
-
-
 //const undo = []; removing until i add undo feature
+
+
+
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', resetCalculator); 
+
+function resetCalculator() {
+    display = [0];
+    displayDiv.textContent = display.join('')
+    clearDisplayCheck = true;
+    firstNumber = null;
+    secondNumber = null;
+    operator = null;
+}
+
+
+const equalsButton = document.querySelector('#equals');
+equalsButton.addEventListener('click', handleEquals);
+
+function handleEquals() {
+    secondNumber = display.join('');
+    operate(firstNumber, operator, secondNumber);
+    display = [];
+    display.push(result); //every time i hit equals, it displays result, i need to only do this once
+    displayDiv.textContent = display.join('');
+    firstNumber = null;
+    operator = null;
+    secondNumber = null;
+    clearDisplayCheck = true;
+}
 
 
 numButtons.forEach((button) => {
@@ -69,7 +94,8 @@ operatorButtons.forEach((button) => {
         else if (firstNumber) {
             secondNumber = display.join('');
             clearDisplayCheck = true;
-            operate(firstNumber, operator, secondNumber);
+            operate(firstNumber, operator, secondNumber); // i don't want this to run unless
+            //secondNumber = null;
             operator = button;
             firstNumber = result;
             display = [];
@@ -111,23 +137,14 @@ function operate(firstNumber, operator, secondNumber) {
     else if (operator === '-') {
         result = subtract(firstNumber, secondNumber);
     }
-    else if (operator === '*' ) {
+    else if (operator === 'x' ) {
         result = multiply(firstNumber, secondNumber);
     }
-    else if (operator === '/') {
+    else if (operator === '÷') {
         result = divide(firstNumber, secondNumber);
     }
 return result;
 }
-
-//console.log(operate(6, '+', 7))
-
-
-//not sure if I want the operators to be received as strings or what, probably strings, but i'm
-//creating this note to make sure I check, just in case
-
-//also, what should I return if the operate function somehow fails
-
 
 
 
