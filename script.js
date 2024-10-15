@@ -5,6 +5,7 @@
 const calcContainer = document.querySelector('.calculator-container');
 const operatorContainer = document.querySelector('.operator-buttons');
 const displayDiv = document.querySelector('.display');
+const numberButtonsContainer = document.querySelector('.number-buttons');
 
 let firstNumber;
 let operator;
@@ -63,6 +64,7 @@ numButtons.forEach((button) => {
     const newButton = document.createElement('button');
     newButton.textContent = button;
     newButton.className = 'calc-button';
+    button === '0' ? newButton.classList.add('zero-button') : null;
     newButton.addEventListener('click', () => {
         
         
@@ -80,7 +82,7 @@ numButtons.forEach((button) => {
             waitForOperand = false;
         }
     });
-    calcContainer.appendChild(newButton);
+    numberButtonsContainer.appendChild(newButton);
 });
 
 operatorButtons.forEach((button) => {
