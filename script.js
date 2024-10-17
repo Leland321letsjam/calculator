@@ -1,7 +1,3 @@
-//calc display function should be changed to string methods, the initial reason for using an 
-//array was because it was to be integrated into the undo feature, which itself will now
-//be almost entirely removed from display
-
 const calcContainer = document.querySelector('.calculator-container');
 const operatorContainer = document.querySelector('.operator-buttons');
 const displayDiv = document.querySelector('.display');
@@ -63,7 +59,7 @@ function handleEquals() {
 numButtons.forEach((button) => {
     const newButton = document.createElement('button');
     newButton.textContent = button;
-    newButton.className = 'calc-button';
+    newButton.className = 'num-button';
     button === '0' ? newButton.classList.add('zero-button') : null;
     newButton.addEventListener('click', () => {
         
@@ -121,6 +117,13 @@ operatorButtons.forEach((button) => {
 });
 
 
+const deleteButton = document.querySelector('#del-button');
+deleteButton.addEventListener('click', removeLastDisplayEntry);
+
+function removeLastDisplayEntry() {
+    display.pop();
+    displayDiv.textContent = display.join('');
+};
 
 
 
