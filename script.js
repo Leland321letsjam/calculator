@@ -122,9 +122,26 @@ deleteButton.addEventListener('click', removeLastDisplayEntry);
 
 function removeLastDisplayEntry() {
     display.pop();
+    if (display.length === 0) {
+        display = [0];
+        clearDisplayCheck = true;
+    }
     displayDiv.textContent = display.join('');
 };
 
+const changeSign = document.querySelector('#change-sign');
+changeSign.addEventListener('click', concatOrRemoveMinus);
+
+function concatOrRemoveMinus() {
+    if (display.find(element => element === '-')) {
+        display.shift();
+        displayDiv.textContent = display.join('');
+    }
+    else {
+        display.unshift('-');
+        displayDiv.textContent = display.join('');
+    }
+};
 
 
 function add (a, b) {
