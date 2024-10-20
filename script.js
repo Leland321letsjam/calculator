@@ -34,6 +34,7 @@ function resetCalculator() {
     secondNumber = null;
     operator = null;
     waitForOperand = false;
+    result = 0;
 }
 
 
@@ -148,21 +149,9 @@ function removeLastDisplayEntry() {
     }
 
     displayDiv.textContent = display.join('');
+    result = display.join('');
 };
 
-
-// && !display[0].toString().includes('-')
-
-// else if (display.length === 0 
-//     || (
-//         display.length === 1 
-//         && display[0].toString().length === 1 
-//         && display[0].includes('-')
-//     )
-//     || (display.length === 2
-//         && display[0].includes('-')
-//         && display[1].toString().length === 1
-//     )
 
 
 const changeSign = document.querySelector('#change-sign');
