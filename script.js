@@ -10,14 +10,11 @@ let clearDisplayCheck = true;
 let display = [0];
 
 
-//const undo = []; removing until i add undo feature
-
-
 const numButtons = [
-    '0', '9', '8',
-    '7', '6', '5',
-    '4', '3', '2',
-    '1',
+    '0', '3', '2',
+    '1', '6', '5',
+    '4', '9', '8',
+    '7',
 ]
 
 const operatorButtons = [
@@ -121,27 +118,77 @@ const deleteButton = document.querySelector('#del-button');
 deleteButton.addEventListener('click', removeLastDisplayEntry);
 
 function removeLastDisplayEntry() {
-    display.pop();
-    if (display.length === 0) {
+
+    if (display[0].toString().length === 2 && display[0].toString().includes('-')) {
         display = [0];
         clearDisplayCheck = true;
+    }
+    else if (display[0].toString().length > 1) {
+        display[0] = display[0].toString().slice(0, -1);
+    }
+    else if (display.length === 2 && display[0] === '-' && display[1].toString().length === 1) {
+        display = [0];
+        clearDisplayCheck = true;
+    }
+    else if (display.length === 2 && display[0] === '-') {
+        display[1] = display[1].toString().slice(0, -1);
+    }
+    else if ((display.length === 2 && display[0] === '-')) {
+        display = [0];
+        clearDisplayCheck = true;
+    }
+    else if (display.length === 1
+        || (display[0].toString().length === 2 && display[0].includes('-'))
+    ) {
+        display = [0];
+        clearDisplayCheck = true;
+    }
+    else {
+        display.pop();
+    }
+
+    displayDiv.textContent = display.join('');
+};
+
+
+// && !display[0].toString().includes('-')
+
+// else if (display.length === 0 
+//     || (
+//         display.length === 1 
+//         && display[0].toString().length === 1 
+//         && display[0].includes('-')
+//     )
+//     || (display.length === 2
+//         && display[0].includes('-')
+//         && display[1].toString().length === 1
+//     )
+
+
+const changeSign = document.querySelector('#change-sign');
+changeSign.addEventListener('click', () => {
+    if (display[0] === 0) {
+        changeSign.disable = true;
+    }
+    else {
+        concatOrRemoveMinus();
+    }
+});
+
+function concatOrRemoveMinus() {
+    changeSign.disable = false;
+    if (display.length > 1 && display.join('').includes('-')) {
+        display.shift();
+    }
+    else if (display < 0) {
+        display[0] = display.join('') * -1;
+    }
+    else {
+        display.unshift('-');
     }
     displayDiv.textContent = display.join('');
 };
 
-const changeSign = document.querySelector('#change-sign');
-changeSign.addEventListener('click', concatOrRemoveMinus);
-
-function concatOrRemoveMinus() {
-    if (display.find(element => element === '-')) {
-        display.shift();
-        displayDiv.textContent = display.join('');
-    }
-    else {
-        display.unshift('-');
-        displayDiv.textContent = display.join('');
-    }
-};
 
 
 function add (a, b) {
@@ -178,11 +225,6 @@ function operate(firstNumber, operator, secondNumber) {
     }
 return result;
 }
-
-
-
-
-
 
 
 
