@@ -7,10 +7,10 @@ let firstNumber;
 let operator;
 let secondNumber;
 let clearDisplayCheck = true;
-let display = [0];
+let display = '0';
 
 
-const numButtons = [
+const numberButtonsArray = [
     '0', '3', '2',
     '1', '6', '5',
     '4', '9', '8',
@@ -22,22 +22,18 @@ const operatorButtons = [
 ]
 
 
-function updateDisplay() {
-    displayDiv.textContent = display.join('');
-}
-
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', resetCalculator); 
 
 function resetCalculator() {
-    display = [0];
+    display = '0';
     updateDisplay();
     clearDisplayCheck = true;
     firstNumber = null;
     secondNumber = null;
     operator = null;
     waitForOperand = false;
-    result = 0;
+    result = '0';
 }
 
 
@@ -45,10 +41,10 @@ const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', handleEquals);
 
 function handleEquals() {
-    secondNumber = display.join('');
+    secondNumber = display;
     operate(firstNumber, operator, secondNumber);
-    display = [];
-    display.push(result);
+    display = ('');
+    display += result;
     updateDisplay();
     firstNumber = null;
     operator = null;
@@ -57,64 +53,62 @@ function handleEquals() {
 }
 
 
-numButtons.forEach((button) => {
-    const newButton = document.createElement('button');
-    newButton.textContent = button;
-    newButton.className = 'num-button';
-    button === '0' ? newButton.classList.add('zero-button') : null;
-    newButton.addEventListener('click', () => {
+numberButtonsArray.forEach((button) => {
+    const numberButton = document.createElement('button');
+    numberButton.textContent = button;
+    numberButton.className = 'num-button';
+    button === '0' ? numberButton.classList.add('zero-button') : null;
+    numberButton.addEventListener('click', () => {
         
         
         if (clearDisplayCheck === true) {
             clearDisplayCheck = false;
-            display = [];
-            display.push(button);
+            display = ('');
+            display += button;
             updateDisplay();
             waitForOperand = false;
             
         }
         else {
-            display.push(button);
+            display += button;
             updateDisplay();
             waitForOperand = false;
         }
     });
-    numberButtonsContainer.insertBefore(newButton, numberButtonsContainer.firstChild);
+    numberButtonsContainer.insertBefore(numberButton, numberButtonsContainer.firstChild);
 });
 
 operatorButtons.forEach((button) => {
-    const newButton = document.createElement('button');
-    newButton.textContent = button;
-    newButton.className = 'operator-button';
-    newButton.addEventListener('click', () => {
+    const numberButton = document.createElement('button');
+    numberButton.textContent = button;
+    numberButton.className = 'operator-button';
+    numberButton.addEventListener('click', () => {
 
         if (!firstNumber) {
-            firstNumber = display.join('');
+            firstNumber = display;
             operator = button;
             clearDisplayCheck = true;
             waitForOperand = true;
-            console.log(firstNumber);
         }
         else if (firstNumber) {
             
             if (waitForOperand === false) {
-                secondNumber = display.join('');
+                secondNumber = display;
                 clearDisplayCheck = true;
                 operate(firstNumber, operator, secondNumber);
                 operator = button;
                 firstNumber = result;
-                display = [];
-                display.push(firstNumber);
+                display = ('');
+                display += firstNumber;
                 updateDisplay();
                 waitForOperand = true;
-                console.log(secondNumber);
             }
             else {
                 operator = button;
             }
         }
     });
-    operatorContainer.appendChild(newButton);
+    operatorContainer.appendChild(numberButton);
 });
 
 
@@ -123,78 +117,61 @@ deleteButton.addEventListener('click', removeLastDisplayEntry);
 
 function removeLastDisplayEntry() {
 
-    if (display[0].toString().length === 2 && display[0].toString().includes('-')) {
-        display = [0];
+    if (display.includes('-') && display.length > 1
+        || display.length === 1) {
+        display = '0';
         clearDisplayCheck = true;
-    }
-    else if (display[0].toString().length > 1) {
-        display[0] = display[0].toString().slice(0, -1);
-    }
-    else if (display.length === 2 && display[0] === '-' && display[1].toString().length === 1) {
-        display = [0];
-        clearDisplayCheck = true;
-    }
-    else if (display.length === 2 && display[0] === '-') {
-        display[1] = display[1].toString().slice(0, -1);
-    }
-    else if ((display.length === 2 && display[0] === '-')) {
-        display = [0];
-        clearDisplayCheck = true;
-    }
-    else if (display.length === 1
-        || (display[0].toString().length === 2 && display[0].includes('-'))
-    ) {
-        display = [0];
-        clearDisplayCheck = true;
-    }
-    else {
-        display.pop();
+    } else {
+        display = display.slice(0, -1);
     }
 
     updateDisplay();
-    result = display.join('');
+    result = display;
 };
 
 
 
 const changeSign = document.querySelector('#change-sign');
-changeSign.addEventListener('click', () => {
-    if (display[0] === 0) {
+changeSign.addEventListener('click', concatOrRemoveMinus);
+
+function concatOrRemoveMinus() {
+    if (display === 0) {
         changeSign.disable = true;
     }
     else {
-        concatOrRemoveMinus();
+        display *= -1;
+        display = display.toString();
+        updateDisplay();
     }
-});
-
-function concatOrRemoveMinus() {
-    changeSign.disable = false;
-    if (display.length > 1 && display.join('').includes('-')) {
-        display.shift();
-    }
-    else if (display < 0) {
-        display[0] = display.join('') * -1;
-    }
-    else {
-        display.unshift('-');
-    }
-    updateDisplay();
 };
 
 // const decimalButton = document.querySelector('#point');
 // decimalButton.addEventListener('click', handleDecimalButton);
 
 // function handleDecimalButton() {
-//     if (display.includes('.') || display.join('').includes('.')) {
+//     if (display.includes('.')) {
 //         decimalButton.disable = true;
 //     }
 //     else {
-//         display.push('.');
+//         display += '.';
 //         updateDisplay();
 //         //result = display.join('');
 //     }
 // };
 
+function updateDisplay() {
+    // if (display.length > 13) {
+    //     let limitedString = Math.round(display.slice(0, 13));
+    //     display = limitedString.toString();
+    //     displayDiv.textContent = display;
+    // } else if (typeof display === 'string') {
+    //     displayDiv.textContent = display;
+    // }
+    // else {
+    //     displayDiv.textContent = display.join('');
+    // }
+    displayDiv.textContent = display;
+}
 
 function add (a, b) {
     return Number(a) + Number(b);
@@ -210,7 +187,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
     if (a / b === Infinity || a / b === -Infinity) {
-        return displayDiv.textContent = 'Nice try sucka';
+        return displayDiv.textContent = 'You fool!';
     }
     else {
         return a / b;
@@ -233,13 +210,6 @@ function operate(firstNumber, operator, secondNumber) {
     else if (operator === '÷') {
         result = divide(firstNumber, secondNumber);
     }
-return result;
+return result.toString();
 }
-
-
-
-
-
-
-
 
