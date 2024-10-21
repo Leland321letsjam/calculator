@@ -145,19 +145,19 @@ function concatOrRemoveMinus() {
     }
 };
 
-// const decimalButton = document.querySelector('#point');
-// decimalButton.addEventListener('click', handleDecimalButton);
+const decimalButton = document.querySelector('#point');
+decimalButton.addEventListener('click', handleDecimalButton);
 
-// function handleDecimalButton() {
-//     if (display.includes('.')) {
-//         decimalButton.disable = true;
-//     }
-//     else {
-//         display += '.';
-//         updateDisplay();
-//         //result = display.join('');
-//     }
-// };
+function handleDecimalButton() {
+    if (display.includes('.')) {
+        decimalButton.disable = true;
+    }
+    else {
+        display += '.';
+        updateDisplay();
+        //result = display.join('');
+    }
+};
 
 function updateDisplay() {
     // if (display.length > 13) {
@@ -168,7 +168,7 @@ function updateDisplay() {
     //     displayDiv.textContent = display;
     // }
     // else {
-    //     displayDiv.textContent = display.join('');
+    //     displayDiv.textContent = display;
     // }
     displayDiv.textContent = display;
 }
