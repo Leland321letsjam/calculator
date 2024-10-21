@@ -22,13 +22,16 @@ const operatorButtons = [
 ]
 
 
+function updateDisplay() {
+    displayDiv.textContent = display.join('');
+}
 
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', resetCalculator); 
 
 function resetCalculator() {
     display = [0];
-    displayDiv.textContent = display.join('')
+    updateDisplay();
     clearDisplayCheck = true;
     firstNumber = null;
     secondNumber = null;
@@ -46,7 +49,7 @@ function handleEquals() {
     operate(firstNumber, operator, secondNumber);
     display = [];
     display.push(result);
-    displayDiv.textContent = display.join('');
+    updateDisplay();
     firstNumber = null;
     operator = null;
     secondNumber = null;
@@ -66,13 +69,13 @@ numButtons.forEach((button) => {
             clearDisplayCheck = false;
             display = [];
             display.push(button);
-            displayDiv.textContent = display.join('');
+            updateDisplay();
             waitForOperand = false;
             
         }
         else {
             display.push(button);
-            displayDiv.textContent = display.join('');
+            updateDisplay();
             waitForOperand = false;
         }
     });
@@ -102,7 +105,7 @@ operatorButtons.forEach((button) => {
                 firstNumber = result;
                 display = [];
                 display.push(firstNumber);
-                displayDiv.textContent = display.join('');
+                updateDisplay();
                 waitForOperand = true;
                 console.log(secondNumber);
             }
@@ -148,7 +151,7 @@ function removeLastDisplayEntry() {
         display.pop();
     }
 
-    displayDiv.textContent = display.join('');
+    updateDisplay();
     result = display.join('');
 };
 
@@ -175,9 +178,22 @@ function concatOrRemoveMinus() {
     else {
         display.unshift('-');
     }
-    displayDiv.textContent = display.join('');
+    updateDisplay();
 };
 
+// const decimalButton = document.querySelector('#point');
+// decimalButton.addEventListener('click', handleDecimalButton);
+
+// function handleDecimalButton() {
+//     if (display.includes('.') || display.join('').includes('.')) {
+//         decimalButton.disable = true;
+//     }
+//     else {
+//         display.push('.');
+//         updateDisplay();
+//         //result = display.join('');
+//     }
+// };
 
 
 function add (a, b) {
@@ -193,7 +209,12 @@ function multiply(a, b) {
 };
 
 function divide(a, b) {
-    return a / b;
+    if (a / b === Infinity || a / b === -Infinity) {
+        return displayDiv.textContent = 'Nice try sucka';
+    }
+    else {
+        return a / b;
+    }
 };
 
 
