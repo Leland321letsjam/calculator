@@ -16,6 +16,7 @@ body {
     border: 2px solid;
     border-radius: 20px;
     display: flex;
+    flex: 0 0 auto;
     align-items: center;
     flex-direction: column;
     height: 500px;
@@ -71,13 +72,12 @@ body {
 }
 
 .display {
-    border: 2px solid green;
+    /* border: 2px solid green; */
     width: 90%;
     margin: 20px;
     background-color: rgb(190, 184, 184);
     display: flex;
     justify-content: flex-end;
-    padding: 0 5px 10px 5px;
+    padding: 0 5px;
     font-size: 40px;
-    overflow: hidden;    /* this needs fixed in JS, probably won't use this at all when fixed*/
 }
