@@ -155,21 +155,21 @@ function handleDecimalButton() {
     else {
         display += '.';
         updateDisplay();
-        //result = display.join('');
+        //result = display;
     }
 };
 
 function updateDisplay() {
+
     // if (display.length > 13) {
     //     let limitedString = Math.round(display.slice(0, 13));
     //     display = limitedString.toString();
     //     displayDiv.textContent = display;
-    // } else if (typeof display === 'string') {
-    //     displayDiv.textContent = display;
-    // }
+    // } 
     // else {
     //     displayDiv.textContent = display;
     // }
+
     displayDiv.textContent = display;
 }
 
@@ -210,6 +210,16 @@ function operate(firstNumber, operator, secondNumber) {
     else if (operator === '÷') {
         result = divide(firstNumber, secondNumber);
     }
-return result.toString();
+
+    if (result.toString().length > 13) {
+        return result = result.toPrecision(4).toString();
+    } else {
+        return result = result.toString();
+    }
 }
 
+// if (result.toString().length > 13) {
+//         return result.toExponential(7).toString();
+//     } else {
+//         return result.toString();
+//     }
