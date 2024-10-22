@@ -117,8 +117,9 @@ deleteButton.addEventListener('click', removeLastDisplayEntry);
 
 function removeLastDisplayEntry() {
 
-    if (display.includes('-') && display.length > 1
-        || display.length === 1) {
+    if (display.includes('-') && display.length === 2
+        || display.length === 1
+        || display === '-0.') {
         display = '0';
         clearDisplayCheck = true;
     } else {
