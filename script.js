@@ -34,7 +34,7 @@ function resetCalculator() {
     operator = null;
     waitForOperand = false;
     result = '0';
-}
+};
 
 
 const equalsButton = document.querySelector('#equals');
@@ -50,7 +50,7 @@ function handleEquals() {
     operator = null;
     secondNumber = null;
     clearDisplayCheck = true;
-}
+};
 
 
 numberButtonsArray.forEach((button) => {
@@ -155,23 +155,20 @@ function handleDecimalButton() {
     else {
         display += '.';
         updateDisplay();
-        //result = display;
     }
 };
 
 function updateDisplay() {
 
-    // if (display.length > 13) {
-    //     let limitedString = Math.round(display.slice(0, 13));
-    //     display = limitedString.toString();
-    //     displayDiv.textContent = display;
-    // } 
-    // else {
-    //     displayDiv.textContent = display;
-    // }
-
-    displayDiv.textContent = display;
-}
+    if (display.length > 13) {
+        let limitedString = display.slice(0, 13);
+        display = limitedString.toString();
+        displayDiv.textContent = display;
+    } 
+    else {
+        displayDiv.textContent = display;
+    }
+};
 
 function add (a, b) {
     return Number(a) + Number(b);
@@ -216,10 +213,4 @@ function operate(firstNumber, operator, secondNumber) {
     } else {
         return result = result.toString();
     }
-}
-
-// if (result.toString().length > 13) {
-//         return result.toExponential(7).toString();
-//     } else {
-//         return result.toString();
-//     }
+};
