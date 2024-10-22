@@ -41,6 +41,7 @@ const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', handleEquals);
 
 function handleEquals() {
+    result = display;
     secondNumber = display;
     operate(firstNumber, operator, secondNumber);
     display = ('');
