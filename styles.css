@@ -4,6 +4,16 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: "Digital";
+    src: url('./fonts/digital-7.ttf');
+}
+
+@font-face {
+    font-family: "Tirto";
+    src: url('./fonts/TirtoWritterRegular-Eajrl.ttf');
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -12,6 +22,15 @@ body {
     background-color: rgb(92, 102, 88);
 }
 
+button {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-shadow: 2px 1px 2px;
+}
+
+button:hover {
+    filter: brightness(1.05);
+}
 
 .calculator-container {
     border: 2px solid;
@@ -23,6 +42,8 @@ body {
     height: 500px;
     width: 300px;
     background-color: #90A9A0;
+    border: 5px solid #6b7e77;
+    box-shadow: 1px 1px 10px;
 }
 
 .top-row-buttons {
@@ -39,8 +60,9 @@ body {
 
 .top-row-button {
     border-radius: 15px;
-    background-color: #ebdcd3;
+    background-color: #e9d1c2;
     color: #384440;
+    border: 3px solid #b6a397;
 }
 
 .buttons-container {
@@ -48,6 +70,7 @@ body {
     width: 100%;
     height: 100%;
     padding: 5%;
+    gap: 5px;
 }
 
 .number-buttons {
@@ -69,6 +92,11 @@ body {
     background-color: #ce6f49;
     border-radius: 15px;
     color: #384440;
+    border: 3px solid #965237;
+}
+
+.num-button {
+    font-family: 'Tirto', sans-serif;
 }
 
 .operator-button {
@@ -78,6 +106,7 @@ body {
     background-color: #ccb091;
     border-radius: 15px;
     color: #384440;
+    border: 3px solid #a08a71;
 }
 
 .display {
@@ -88,4 +117,5 @@ body {
     justify-content: flex-end;
     padding: 0 5px;
     font-size: 40px;
+    font-family: 'Digital', sans-serif;
 }
