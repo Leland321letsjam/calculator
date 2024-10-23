@@ -59,10 +59,13 @@ numberButtonsArray.forEach((button) => {
     numberButton.textContent = button;
     numberButton.className = 'num-button';
     button === '0' ? numberButton.classList.add('zero-button') : null;
-    numberButton.addEventListener('click', () => {
-        
-        
-        if (clearDisplayCheck === true) {
+    numberButton.addEventListener('click', () => {numberButtonClick(button)} );
+    numberButtonsContainer.insertBefore(numberButton, numberButtonsContainer.firstChild);
+});
+
+function numberButtonClick(button) {
+
+    if (clearDisplayCheck === true) {
             clearDisplayCheck = false;
             display = ('');
             display += button;
@@ -75,9 +78,7 @@ numberButtonsArray.forEach((button) => {
             updateDisplay();
             waitForOperand = false;
         }
-    });
-    numberButtonsContainer.insertBefore(numberButton, numberButtonsContainer.firstChild);
-});
+};
 
 operatorButtons.forEach((button) => {
     const numberButton = document.createElement('button');
@@ -111,6 +112,7 @@ operatorButtons.forEach((button) => {
     });
     operatorContainer.appendChild(numberButton);
 });
+
 
 
 const deleteButton = document.querySelector('#del-button');
@@ -171,6 +173,13 @@ function updateDisplay() {
         displayDiv.textContent = display;
     }
 };
+
+// document.addEventListener('keydown', (event) => {
+//     if (event.key === ) {
+
+//     }
+// })
+
 
 function add (a, b) {
     return Number(a) + Number(b);
