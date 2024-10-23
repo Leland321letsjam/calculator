@@ -63,6 +63,7 @@ numberButtonsArray.forEach((button) => {
     numberButtonsContainer.insertBefore(numberButton, numberButtonsContainer.firstChild);
 });
 
+
 function numberButtonClick(button) {
 
     if (clearDisplayCheck === true) {
@@ -71,8 +72,8 @@ function numberButtonClick(button) {
             display += button;
             updateDisplay();
             waitForOperand = false;
-            
         }
+        
         else {
             display += button;
             updateDisplay();
@@ -156,8 +157,11 @@ function handleDecimalButton() {
     if (display.includes('.')) {
         decimalButton.disable = true;
     }
+
     else {
         display += '.';
+        result = display;
+        clearDisplayCheck = false;
         updateDisplay();
     }
 };
