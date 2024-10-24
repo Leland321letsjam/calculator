@@ -64,61 +64,6 @@ numberButtonsArray.forEach((button) => {
 });
 
 
-
-document.addEventListener('keydown', (event) => {
-    
-    const key = event.key;
-    console.log(key);
-    // const numButton = document.querySelectorAll('.num-button');
-
-    // const numKey = numberButtonsArray.find((number) => number === key);
-    // console.log(numKey);
-
-    // if (key === '1') {
-    //     numberButtonClick(key); //just saving this for now because it worked for one button
-    // }
-
-    if (numberButtonsArray.includes(key)) {
-        numberButtonClick(key);
-    } else if (operatorButtons.includes(key)
-        || key === '/'
-        || key === '*') {
-            console.log(key);
-    }
-    
-    // const opKey = operatorButtons.find((operator) => operator === key);
-    // console.log(opKey);
-    
-    if (key === '.') {
-        decimalButton.click();
-    }
-
-    if (key === 'Enter') {
-        event.preventDefault();
-        equalsButton.click();
-        equalsButton.focus(); //should remove this when i get the timeout hover working
-    }
-
-    if (key === 'Backspace') {
-        deleteButton.click();
-    }
-    
-
-    // decimalButton.classList.add('simulate-click');
-    // setTimeout(() => {decimalButton.classList.remove('simulate-click'); }, 250);
-
-
-    // if (numberButtonsArray.includes(key)) {
-    //     const button = document.querySelectorAll('.num-button');
-
-
-    // } /*else if (operatorButtons.includes(key)) {
-
-    // }*/
-});
-
-
-
 function numberButtonClick(button) {
 
     if (clearDisplayCheck === true) {
@@ -233,6 +178,42 @@ function updateDisplay() {
         displayDiv.textContent = display;
     }
 };
+
+
+document.addEventListener('keydown', (event) => {
+    
+    let key = event.key;
+
+    if (numberButtonsArray.includes(key)) {
+        numberButtonClick(key);
+    } else if (operatorButtons.includes(key)
+        || key === '/'
+        || key === '*') {
+
+            if (key === '/') {
+                key = '÷';
+            } else if (key === '*') {
+                key = 'x';
+            }
+
+            operatorButtonClick(key);
+    }
+    
+    if (key === '.') {
+        decimalButton.click();
+    }
+
+    if (key === 'Enter') {
+        event.preventDefault();
+        equalsButton.click();
+        equalsButton.blur();
+    }
+
+    if (key === 'Backspace') {
+        deleteButton.click();
+    }
+
+});
 
 
 function add (a, b) {
