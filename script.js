@@ -64,6 +64,61 @@ numberButtonsArray.forEach((button) => {
 });
 
 
+
+document.addEventListener('keydown', (event) => {
+    
+    const key = event.key;
+    console.log(key);
+    // const numButton = document.querySelectorAll('.num-button');
+
+    // const numKey = numberButtonsArray.find((number) => number === key);
+    // console.log(numKey);
+
+    // if (key === '1') {
+    //     numberButtonClick(key); //just saving this for now because it worked for one button
+    // }
+
+    if (numberButtonsArray.includes(key)) {
+        numberButtonClick(key);
+    } else if (operatorButtons.includes(key)
+        || key === '/'
+        || key === '*') {
+            console.log(key);
+    }
+    
+    // const opKey = operatorButtons.find((operator) => operator === key);
+    // console.log(opKey);
+    
+    if (key === '.') {
+        decimalButton.click();
+    }
+
+    if (key === 'Enter') {
+        event.preventDefault();
+        equalsButton.click();
+        equalsButton.focus(); //should remove this when i get the timeout hover working
+    }
+
+    if (key === 'Backspace') {
+        deleteButton.click();
+    }
+    
+
+    // decimalButton.classList.add('simulate-click');
+    // setTimeout(() => {decimalButton.classList.remove('simulate-click'); }, 250);
+
+
+    // if (numberButtonsArray.includes(key)) {
+    //     const button = document.querySelectorAll('.num-button');
+
+
+    // } /*else if (operatorButtons.includes(key)) {
+
+    // }*/
+});
+
+
+
 function numberButtonClick(button) {
 
     if (clearDisplayCheck === true) {
@@ -81,39 +136,40 @@ function numberButtonClick(button) {
         }
 };
 
+
 operatorButtons.forEach((button) => {
     const numberButton = document.createElement('button');
     numberButton.textContent = button;
     numberButton.className = 'operator-button';
-    numberButton.addEventListener('click', () => {
-
-        if (!firstNumber) {
-            firstNumber = display;
-            operator = button;
-            clearDisplayCheck = true;
-            waitForOperand = true;
-        }
-        else if (firstNumber) {
-            
-            if (waitForOperand === false) {
-                secondNumber = display;
-                clearDisplayCheck = true;
-                operate(firstNumber, operator, secondNumber);
-                operator = button;
-                firstNumber = result;
-                display = ('');
-                display += firstNumber;
-                updateDisplay();
-                waitForOperand = true;
-            }
-            else {
-                operator = button;
-            }
-        }
-    });
+    numberButton.addEventListener('click', () => {operatorButtonClick(button)});
     operatorContainer.appendChild(numberButton);
 });
 
+function operatorButtonClick(button) {
+    if (!firstNumber) {
+        firstNumber = display;
+        operator = button;
+        clearDisplayCheck = true;
+        waitForOperand = true;
+    }
+    else if (firstNumber) {
+        
+        if (waitForOperand === false) {
+            secondNumber = display;
+            clearDisplayCheck = true;
+            operate(firstNumber, operator, secondNumber);
+            operator = button;
+            firstNumber = result;
+            display = ('');
+            display += firstNumber;
+            updateDisplay();
+            waitForOperand = true;
+        }
+        else {
+            operator = button;
+        }
+    }
+};
 
 
 const deleteButton = document.querySelector('#del-button');
@@ -177,12 +233,6 @@ function updateDisplay() {
         displayDiv.textContent = display;
     }
 };
-
-// document.addEventListener('keydown', (event) => {
-//     if (event.key === ) {
-
-//     }
-// })
 
 
 function add (a, b) {
