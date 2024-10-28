@@ -16,5 +16,5 @@ The finished version of this project should display my ability to:
 - Use JavaScript to add interactivity to these elements, including:
     - Functions to evaluate user inputted expressions
     - Display the output in HTML
-    - Storing user inputted information for future use (such as an 'undo' button)
+    - Modifying current information based on user input
 - Use JavaScript to handle large numbers and floating numbers
